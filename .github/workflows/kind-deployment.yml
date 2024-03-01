@@ -11,3 +11,24 @@ jobs:
     steps:
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1
+
+  docker-job:
+    runs-on: ubuntu-latest
+    needs: create-cluster  # Ensure that the Kind cluster creation job completes before starting this one
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo usermod -aG docker $USER
+          newgrp docker
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t your-docker-image-name:latest .
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push your-docker-image-name:latest

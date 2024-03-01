@@ -11,6 +11,7 @@ jobs:
     steps:
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1
+---
 
   install-docker:
     runs-on: ubuntu-latest

@@ -5,3 +5,5 @@ RUN apt install –y apache2-utils
 RUN apt clean 
 EXPOSE 80
 CMD [“apache2ctl”, “-D”, “FOREGROUND”]
+RUN docker build -t apache_image:1.0 .
+RUN docker run --name myapache -d -p 80:80 apache_image:1.0

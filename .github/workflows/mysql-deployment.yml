@@ -1,4 +1,4 @@
-name: mysql deployment
+name: mysql-deployment
 on:
   push:
     branches: [$main-branch]
@@ -15,9 +15,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: mysql deployment
+    - name: mysql-deployment
 
-      run: echo this is a mysql deployment-job
+      run: echo this is a mysql-deployment-job
 ---
 apiVersion: apps/v1
 kind: Deployment

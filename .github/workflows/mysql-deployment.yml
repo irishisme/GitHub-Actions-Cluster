@@ -1,24 +1,8 @@
-name: mysql-deployment
+name: mysql Deployment
 on:
   push:
-    branches: [$main-branch]
-  pull_request:
-    branches: [$main-branch]
-    branch_protection_rule:
-      types:
-      - edited
-      - created
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: mysql-deployment
-
-      run: echo this is a mysql-deployment-job
----
+    branches:
+    - main
 apiVersion: apps/v1
 kind: Deployment
 metadata:

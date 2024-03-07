@@ -1,40 +1,20 @@
-name: mysql Deployment
+name: mysql-Deployment
 on:
   push:
     branches:
     - main
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: mysql
-spec:
-  selector:
-    matchLabels:
-      app: mysql
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: mysql
-    spec:
-      containers:
-      - image: mysql:8.0
-        resources:
-          limits:
-            memory: 512Mi
-            cpu: '1'
-        name: mysql
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: password
-        ports:
-        - containerPort: 3306
-          name: mysql
-        volumeMounts:
-        - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
-      volumes:
-      - name: mysql-persistent-storage
-        persistentVolumeClaim:
-          claimName: mysql-pv-claim
+jobs:
+  create-Deployment:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: mirromutth/mysql-action@v1.1
+      with:
+        host port: 3800 #
+        container port: 3307
+        character set server: 'utf8'
+        collation server: 'utf8_general_ci'
+        mysql version: '8.0'
+        mysql database: 'some_test'
+        mysql root password: ${{ secrets.RootPassworld }}
+        mysql user: 'developer'
+        mysql password: ${{ secrets.DatabasePassword }}

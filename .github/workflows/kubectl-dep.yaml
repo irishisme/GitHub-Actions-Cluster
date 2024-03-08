@@ -1,4 +1,5 @@
-name: Kind Clustera
+name: Create Kind Cluster
+
 on:
   push:
     branches:
@@ -8,45 +9,32 @@ jobs:
   create-cluster:
     runs-on: ubuntu-latest
     steps:
-    - name: Set up Node.js 20
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
+      - name: Create k8s Kind Cluster
+        uses: helm/kind-action@v1
 
-    - name: Install Docker
-      run: |
-        sudo apt-get update
-        sudo apt install apt-transport-https ca-certificates curl software-properties-common
-        sudo sh -c "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg"
-        sudo sh -c "echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null"
-        sudo apt update
-        apt-cache policy docker-ce
-        sudo apt install docker-ce
-        sudo systemctl status docker
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-    - name: 'Kubectl tool installer'
-      uses: 'uses: azure/setup-kubectl@v3'
-      with:
-        version: ${{ inputs.version }}
-      id: kubectl
+      - name: Install Docker
+        run: |
+          sudo apt-get update
+          sudo apt install apt-transport-https ca-certificates curl software-properties-common
+          sudo sh -c "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg"
+          sudo sh -c "echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null"
+          sudo apt update
+          apt-cache policy docker-ce
+          sudo apt install docker-ce
+          sudo systemctl status docker
 
-    - name: 'Kubectl tool installer output'
-      run: echo "::set-output name=kubectl-path::$(kubectl)"
-      env:
-        kubectl: ${{ steps.kubectl.outputs.kubectl-path }}
-        using: 'node20'
-        main: 'lib/index.js'
 
-    # - name: Install kubectl
-    #   run: 
-    #     sudo apt-get update
-    #     sudo docker --version
-    #     sudo sh -c "curl -LO 'https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl'"
-    #     sudo sh -c "curl -LO 'https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256'"
-    #     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-    #     kubectl version --client
- 
-        
+      # - name: Install kubectl
+      #   run: 
+      #     sudo apt-get update
+      #     sudo docker --version
+      #     sudo sh -c "curl -LO 'https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl'"
+      #     sudo sh -c "curl -LO 'https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256'"
+      #     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+      #     kubectl version --client
 
-    - name: Create k8s Kind Cluster
-      uses: helm/kind-action@v1

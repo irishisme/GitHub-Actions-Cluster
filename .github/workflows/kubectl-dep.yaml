@@ -24,13 +24,28 @@ jobs:
         sudo apt install docker-ce
         sudo systemctl status docker
 
-    - name: Install kubectl
-      run: 
-        sudo apt-get update
-        sudo docker --version
-        sudo sh -c "curl -LO 'https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl'"
-        sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-        kubectl version --client
+    - name: 'Kubectl tool installer'
+      uses: 'actions/setup-kubectl@v1'
+      with:
+        version: ${{ inputs.version }}
+      id: kubectl
+
+    - name: 'Kubectl tool installer output'
+      run: echo "::set-output name=kubectl-path::$(kubectl)"
+      env:
+        kubectl: ${{ steps.kubectl.outputs.kubectl-path }}
+        using: 'node20'
+        main: 'lib/index.js'
+
+    # - name: Install kubectl
+    #   run: 
+    #     sudo apt-get update
+    #     sudo docker --version
+    #     sudo sh -c "curl -LO 'https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl'"
+    #     sudo sh -c "curl -LO 'https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256'"
+    #     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+    #     kubectl version --client
+ 
         
 
     - name: Create k8s Kind Cluster

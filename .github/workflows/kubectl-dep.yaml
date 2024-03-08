@@ -1,5 +1,4 @@
-name: Kind Cluster
-
+name: Kind Clustera
 on:
   push:
     branches:
@@ -29,8 +28,8 @@ jobs:
       run: 
         sudo apt-get update
         sudo docker --version
-        sudo sh -c "curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl""
-        sudo sh -c "curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl-convert.sha256""
+        sudo sh -c "curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl""
+        sudo sh -c "curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256""
         sudo sh -c "echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check" 
         sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
         kubectl version --client

@@ -25,7 +25,7 @@ jobs:
         sudo systemctl status docker
 
     - name: 'Kubectl tool installer'
-      uses: 'actions-hub/kubectl@master'
+      uses: 'uses: azure/setup-kubectl@v3'
       with:
         version: ${{ inputs.version }}
       id: kubectl

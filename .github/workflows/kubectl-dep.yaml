@@ -28,6 +28,16 @@ jobs:
           sudo apt install docker-ce
           sudo systemctl status docker
 
+      - name: run a multi-line script
+        run:
+          mdkir -p /home/runner/work/.github/workflows/
+          chmod +x ./install-kubectl.sh
+          ./install-kubectl.sh
+          pwd
+          ls -a
+          kubectl version --client
+
+
 
 
       # - name: Install kubectl

@@ -29,11 +29,6 @@ jobs:
           sudo systemctl status docker
 
 
-      - name: run a multi-line script
-        run: ./install-kubectl.sh
-           ls -a
-           kubectl version --client
-
 
       # - name: Install kubectl
       #   run: 

@@ -12,7 +12,9 @@ latest=$(uname -Ubuntu 22.04 | tr '[:upper:]' '[:lower:]')
 # Download the latest version of kubectl
 echo "Downloading kubectl..."
 curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/$OS/amd64/kubectl"
-# Make kubectl executable
+pwd
+sudo sh -c "apt-get install -y kubectl"
+pwd
 chmod +x kubectl
 
 # Check if kubectl is executable
@@ -37,7 +39,7 @@ fi
 chmod +x kubectl
 
 # Move kubectl to a directory in the PATH
-sudo mv kubectl /usr/local/bin/
+sudo mv kubectl /home/runner/work/
 
 # Check if kubectl installation was successful
 if command -v kubectl &> /dev/null

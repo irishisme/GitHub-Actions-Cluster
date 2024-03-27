@@ -27,7 +27,23 @@ jobs:
           apt-cache policy docker-ce
           sudo apt install docker-ce
           sudo systemctl status docker
-          
+
+      - name: Install kubectl
+        run: install_kubectl.sh
+       
+           echo "Downloading kubectl..."
+        
+           sudo sh -c "curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/$OS/amd64/kubectl"
+           chmod +x kubectl
+          sudo mv kubectl /usr/local/bin/
+      
+          if command -v kubectl &> /dev/null
+         then
+          echo "kubectl has been installed successfully."
+         else
+          echo "Failed to install kubectl."
+          exit 1
+         fi
 
 
       # - name: Install kubectl

@@ -30,7 +30,6 @@ jobs:
 
       - name: run a multi-line script
         run:
-          mkdir -p /home/runner/work/.github/workflows/
           chmod +x ./install-kubectl.sh
           ./install-kubectl.sh
           pwd

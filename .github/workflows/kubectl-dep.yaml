@@ -28,7 +28,7 @@ jobs:
           sudo apt install docker-ce
           sudo systemctl status docker
 
-      - name: run a multi-line script
+      - name: run a shell script
         run: |
           sudo apt-get update
           #!bin/bash

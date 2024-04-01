@@ -15,8 +15,11 @@ jobs:
          uses: actions/download-artifact@v4
          with:
              
-           name: install-kubectl.sh
-           run: ls -r     
+            name: install-kubectl.sh
+            run: ls -r
+            merge-multiple: false
+            repository: irishisme/GitHub-Actions-Cluster
+            run-id: 8513206498
     
             
        - name: run a shell script

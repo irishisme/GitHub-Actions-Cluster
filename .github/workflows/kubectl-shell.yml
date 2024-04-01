@@ -15,15 +15,8 @@ jobs:
          uses: actions/upload-artifact@v2
          with: 
               name: my-artifact
-              path: install-kubectl.sh
-    
-       - name: Download a single artifact
-         uses: actions/download-artifact@v2
-         with:
-              name: my-artifact
-              path: install-kubectl.sh
-    
-            
+              path: install-kubectl.sh        
+                
        - name: run a shell script
          run: |
            sudo apt-get update

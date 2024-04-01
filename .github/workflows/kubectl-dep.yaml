@@ -31,6 +31,7 @@ jobs:
       - name: run a multi-line script
         run: |
           sudo apt-get update
+          mkdir  /home/runner/work/.github/workflows
           sudo chmod +x /home/runner/work/.github/workflows./install-kubectl.sh
           ./install-kubectl.sh
           pwd

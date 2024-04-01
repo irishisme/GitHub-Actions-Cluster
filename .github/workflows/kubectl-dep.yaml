@@ -31,7 +31,7 @@ jobs:
       - name: run a multi-line script
         run:
           sudo mv kubectl /home/runner/work/.github/workflows
-          sudo sh -c "chmod +x ./install-kubectl.sh"
+          chmod +x ./install-kubectl.sh
           ./install-kubectl.sh
           pwd
           ls -a

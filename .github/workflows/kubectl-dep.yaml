@@ -28,16 +28,6 @@ jobs:
           sudo apt install docker-ce
           sudo systemctl status docker
 
-      - name: run a shell script
-        run: |
-          sudo apt-get update
-          #!bin/bash
-          sudo chmod +x /home/runner/work/.github/workflows./install-kubectl.sh
-          ./install-kubectl.sh
-          pwd
-          ls -a
-          kubectl version --client
-
 
 
 

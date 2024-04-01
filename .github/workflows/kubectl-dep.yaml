@@ -29,8 +29,8 @@ jobs:
           sudo systemctl status docker
 
       - name: run a multi-line script
-        run:
-          sudo mv kubectl /home/runner/work/.github/workflows
+        run: |
+          sudo apt-get update
           chmod +x ./install-kubectl.sh
           ./install-kubectl.sh
           pwd

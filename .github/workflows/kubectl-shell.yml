@@ -17,6 +17,12 @@ jobs:
               name: my-artifact
               path: install-kubectl.sh
     
+       - name: Download a single artifact
+         uses: actions/download-artifact@v2
+         with:
+              name: my-artifact
+              path: install-kubectl.sh
+    
             
        - name: run a shell script
          run: |
@@ -24,7 +30,7 @@ jobs:
            #!/bin/bash
            ls
            pwd
-           sudo chmod +x /home/runner/work/.github/workflows./install-kubectl.sh
+           sudo chmod +x install-kubectl.sh
            ./install-kubectl.sh
            pwd
            ls -a

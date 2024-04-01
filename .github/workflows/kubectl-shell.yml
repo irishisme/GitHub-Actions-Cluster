@@ -16,12 +16,6 @@ jobs:
          with: 
               name: my-artifact
               path: install-kubectl.sh
-       
-       - name: 'Download a single artifact'
-         uses: actions/download-artifact@v4
-         with:
-             
-            name: install-kubectl.sh
     
             
        - name: run a shell script

@@ -1,0 +1,28 @@
+name: install kubectl
+
+on: 
+  push:
+    
+jobs:
+   build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+     
+    - name: Download a single artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: install-kubectl.sh
+    
+    - name: run a shell script
+      run: |
+       sudo apt-get update
+       #!/bin/bash
+       ls
+       pwd
+       sudo chmod +x /home/runner/work/.github/workflows./install-kubectl.sh
+       ./install-kubectl.sh
+       pwd
+       ls -a
+       kubectl version --client

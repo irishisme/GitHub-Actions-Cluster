@@ -30,7 +30,7 @@ jobs:
 
       - name: run a multi-line script
         run:
-          chmod +x ./install-kubectl.sh
+          sudo sh -c "chmod +x ./install-kubectl.sh"
           ./install-kubectl.sh
           pwd
           ls -a

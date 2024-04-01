@@ -11,8 +11,8 @@ jobs:
          uses: actions/download-artifact@v4
          with:
             name: my-artifact
-            path: /home/runner/work/.github/workflows/install-kubectl.sh
-            retention-days: 5
+            path: install-kubectl.sh
+            
 
     
        - name: run a shell script

@@ -7,14 +7,18 @@ jobs:
    build_and_test:
     runs-on: ubuntu-latest
     steps:
+
+       - name: Checkout code
+         uses: actions/checkout@v2
+    
        - name: 'Download a single artifact'
          uses: actions/download-artifact@v4
          with:
-            name: my-artifact
-            path: install-kubectl.sh
-            
-
+             
+           name: install-kubectl.sh
+           run: ls -r     
     
+            
        - name: run a shell script
          run: |
            sudo apt-get update

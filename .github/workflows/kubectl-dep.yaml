@@ -4,39 +4,53 @@ on:
   push:
     branches:
     - main
+  pull_request:
+    branches:
+    - main
 
 jobs:
   create-cluster:
     runs-on: ubuntu-latest
     steps:
-      - name: Create k8s Kind Cluster
-        uses: helm/kind-action@v1
+    - name: Create k8s Kind Cluster
+      uses: helm/kind-action@v1
 
-      - name: Set up Node.js 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install Docker
-        run: |
-          sudo apt-get update
-          sudo apt install apt-transport-https ca-certificates curl software-properties-common
-          sudo sh -c "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg"
-          sudo sh -c "echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null"
-          sudo apt update
-          apt-cache policy docker-ce
-          sudo apt install docker-ce
-          sudo systemctl status docker
-
-
+    - name: Set up Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+  
+    - name: Install Docker
+      run: |
+        sudo apt-get update
+        sudo apt install apt-transport-https ca-certificates curl software-properties-common
+        sudo sh -c "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg"
+        sudo sh -c "echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null"
+        sudo apt update
+        apt-cache policy docker-ce
+        sudo apt install docker-ce
+        sudo systemctl status docker
 
 
-      # - name: Install kubectl
-      #   run: 
-      #     sudo apt-get update
-      #     sudo docker --version
-      #     sudo sh -c "curl -LO 'https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl'"
-      #     sudo sh -c "curl -LO 'https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256'"
-      #     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-      #     kubectl version --client
+    - name: Checkout code
+      uses: actions/checkout@v2
 
+     
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: install-kubectl.sh
+        
+   
+    - name: run a shell script
+      run: |
+        sudo apt-get update
+        #!/bin/bash
+        ls
+        pwd
+        sudo chmod +x install-kubectl.sh
+        ./install-kubectl.sh
+        pwd
+        ls -a
+        kubectl version --client
